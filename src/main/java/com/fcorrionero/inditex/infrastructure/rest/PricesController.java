@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -37,11 +40,17 @@ public class PricesController {
             @PathVariable("productId") int productId,
             @PathVariable("brandId") int brandId
     ) {
-        return this.getPricesByApplicationDateProductIdAndBrandIdQueryHandler
-                .dispatch(new GetPricesByApplicationDateProductIdAndBrandIdQuery(
-                        Date.from(Instant.now()),
-                        productId,
-                        brandId
-                ));
+        DateFormat formatter = new SimpleDateFormat(GetPricesByApplicationDateProductIdAndBrandIdQuery.DATE_FORMAT);
+        try {
+            Date appDate = formatter.parse(date);
+            return this.getPricesByApplicationDateProductIdAndBrandIdQueryHandler
+                    .dispatch(new GetPricesByApplicationDateProductIdAndBrandIdQuery(
+                            appDate,
+                            productId,
+                            brandId
+                    ));
+        } catch (ParseException e) {
+            return List.of(); // TODO create proper errors
+        }
     }
 }

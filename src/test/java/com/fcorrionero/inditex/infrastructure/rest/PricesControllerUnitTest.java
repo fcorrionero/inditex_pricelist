@@ -7,21 +7,21 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.internal.matchers.Any;
+import org.mockito.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
-
-import static org.mockito.ArgumentMatchers.any;
 
 class PricesControllerUnitTest {
 
     @Mock
     private GetPricesByApplicationDateProductIdAndBrandIdQueryHandler getPricesByApplicationDateProductIdAndBrandIdQueryHandlerMock;
+
+    @Captor
+    private ArgumentCaptor<GetPricesByApplicationDateProductIdAndBrandIdQuery> queryCaptor;
 
     private AutoCloseable autoCloseable;
 
@@ -37,6 +37,7 @@ class PricesControllerUnitTest {
 
     @Test
     public void should_return_a_PricesDataDto_list() {
+        DateFormat formatter = new SimpleDateFormat(GetPricesByApplicationDateProductIdAndBrandIdQuery.DATE_FORMAT);
         Date givenDate = Date.from(Instant.now());
         int givenProductId = 1111;
         int givenBrandId = 1;
@@ -53,17 +54,19 @@ class PricesControllerUnitTest {
                         givenProductId,
                         givenBrandId,
                         1,
-                        givenDate.toString(),
-                        givenDate.toString()
+                        formatter.format(givenDate),
+                        formatter.format(givenDate)
                 )
         );
-        Mockito.when(getPricesByApplicationDateProductIdAndBrandIdQueryHandlerMock.dispatch(any())).thenReturn(givenListOfPricesDataDto);
-
         PricesController pricesController = new PricesController(getPricesByApplicationDateProductIdAndBrandIdQueryHandlerMock);
+        List<PricesDataDto> result = pricesController.getPricesByApplicationDateProductIdAndBrandId(formatter.format(givenDate), givenProductId, givenBrandId);
 
-        List<PricesDataDto> result = pricesController.getPricesByApplicationDateProductIdAndBrandId(givenDate.toString(), givenProductId, givenBrandId);
+        Mockito.verify(getPricesByApplicationDateProductIdAndBrandIdQueryHandlerMock).dispatch(queryCaptor.capture());
+        GetPricesByApplicationDateProductIdAndBrandIdQuery queryValue = queryCaptor.getValue();
 
-        Assertions.assertTrue(true);
+        Assertions.assertEquals(query.applicationDate().toString(), queryValue.applicationDate().toString());
+        Assertions.assertEquals(query.brandId(), queryValue.brandId());
+        Assertions.assertEquals(query.productId(), queryValue.productId());
     }
 
 }

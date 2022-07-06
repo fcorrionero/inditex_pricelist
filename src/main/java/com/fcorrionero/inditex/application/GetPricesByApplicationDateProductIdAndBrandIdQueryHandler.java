@@ -24,9 +24,9 @@ public class GetPricesByApplicationDateProductIdAndBrandIdQueryHandler {
 
     public List<PricesDataDto> dispatch(GetPricesByApplicationDateProductIdAndBrandIdQuery query) {
         List<ProductPrice> productPrices = this.priceRepository.findPricesByApplicationDateProductIdAndBrandId(
-                query.getApplicationDate(),
-                query.getProductId(),
-                query.getBrandId()
+                query.applicationDate(),
+                query.productId(),
+                query.brandId()
         );
 
         Map<String, ProductPrice> pricesFilteredByPriceList = new HashMap<>();
@@ -41,17 +41,15 @@ public class GetPricesByApplicationDateProductIdAndBrandIdQueryHandler {
 
         List<PricesDataDto> pricesDataDtos = new ArrayList<>();
 
-        pricesFilteredByPriceList.forEach((key,it) -> {
-            pricesDataDtos.add(new PricesDataDto(
-                    it.getCurrency(),
-                    it.getPrice(),
-                    it.getProductId(),
-                    it.getBrandId(),
-                    it.getPriceList(),
-                    it.getStartDate().toString(),
-                    it.getEndDate().toString()
-            ));
-        });
+        pricesFilteredByPriceList.forEach((key,it) -> pricesDataDtos.add(new PricesDataDto(
+                it.getCurrency(),
+                it.getPrice(),
+                it.getProductId(),
+                it.getBrandId(),
+                it.getPriceList(),
+                it.getStartDate().toString(),
+                it.getEndDate().toString()
+        )));
 
         return pricesDataDtos;
     }

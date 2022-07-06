@@ -122,7 +122,7 @@ final class GetPricesByApplicationDateProductIdAndBrandIdQueryHandlerUnitTest {
 
         List<PricesDataDto> result = queryHandler.dispatch(query);
 
-        Assertions.assertEquals(expectedPrice, result.get(0).getPrice());
+        Assertions.assertEquals(expectedPrice, result.get(0).price());
         Assertions.assertEquals(1, result.size());
     }
 

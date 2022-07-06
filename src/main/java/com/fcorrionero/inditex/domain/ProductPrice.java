@@ -1,12 +1,10 @@
 package com.fcorrionero.inditex.domain;
 
-import javax.persistence.Id;
 import java.util.Date;
 import java.util.UUID;
 
 public class ProductPrice {
 
-    @Id
     private UUID id;
     private int brandId;
     private Date startDate;
