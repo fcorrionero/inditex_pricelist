@@ -46,7 +46,23 @@ public class PricesControllerComponentTest {
     public void should_return_products(String date, int productId, int brandId) {
         List<PricesDataDto> result = pricesController.getPricesByApplicationDateProductIdAndBrandId(date, productId, brandId);
 
-        Assertions.assertTrue(true);
+        switch (date) {
+            case "14-06-2020,10:00":
+                Assertions.assertEquals(1, result.size());
+                break;
+            case "14-06-2020,16:00":
+                Assertions.assertEquals(2, result.size());
+                break;
+            case "14-06-2020,21:00":
+                Assertions.assertEquals(1, result.size());
+                break;
+            case "15-06-2020,10:00":
+                Assertions.assertEquals(2, result.size());
+                break;
+            case "15-06-2020,21:00":
+                Assertions.assertEquals(2, result.size());
+                break;
+        }
     }
 
 }
