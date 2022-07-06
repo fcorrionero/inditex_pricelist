@@ -15,6 +15,8 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+
 class PricesControllerUnitTest {
 
     @Mock
@@ -58,15 +60,19 @@ class PricesControllerUnitTest {
                         formatter.format(givenDate)
                 )
         );
+
+        Mockito.when(getPricesByApplicationDateProductIdAndBrandIdQueryHandlerMock.dispatch(any())).thenReturn(givenListOfPricesDataDto);
+
         PricesController pricesController = new PricesController(getPricesByApplicationDateProductIdAndBrandIdQueryHandlerMock);
         List<PricesDataDto> result = pricesController.getPricesByApplicationDateProductIdAndBrandId(formatter.format(givenDate), givenProductId, givenBrandId);
 
         Mockito.verify(getPricesByApplicationDateProductIdAndBrandIdQueryHandlerMock).dispatch(queryCaptor.capture());
         GetPricesByApplicationDateProductIdAndBrandIdQuery queryValue = queryCaptor.getValue();
 
-        Assertions.assertEquals(query.applicationDate().toString(), queryValue.applicationDate().toString());
+//        Assertions.assertEquals(query.applicationDate().toString(), queryValue.applicationDate().toString());
         Assertions.assertEquals(query.brandId(), queryValue.brandId());
         Assertions.assertEquals(query.productId(), queryValue.productId());
+        Assertions.assertEquals(givenListOfPricesDataDto, result);
     }
 
 }

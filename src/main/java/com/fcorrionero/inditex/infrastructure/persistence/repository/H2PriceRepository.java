@@ -20,8 +20,8 @@ public class H2PriceRepository implements PriceRepository {
     @Override
     public List<ProductPrice> findPricesByApplicationDateProductIdAndBrandId(Date appDate, int productId, int brandId)
     {
-        return jdbcTemplate.query("Select * From Product_Price", new ProductPriceMapper());
+        String query = "SELECT * FROM Product_Price WHERE PRODUCT_ID = ? AND BRAND_ID = ? AND ? BETWEEN START_DATE AND END_DATE  ";
+        return jdbcTemplate.query(query, new ProductPriceMapper(), productId, brandId, appDate);
 
-//        return List.of();
     }
 }

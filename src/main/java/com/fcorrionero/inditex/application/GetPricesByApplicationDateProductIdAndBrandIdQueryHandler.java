@@ -31,17 +31,18 @@ public class GetPricesByApplicationDateProductIdAndBrandIdQueryHandler {
 
         Map<String, ProductPrice> pricesFilteredByPriceList = new HashMap<>();
         productPrices.forEach(it -> {
-            ProductPrice p = pricesFilteredByPriceList.get(it.getId().toString());
+            String key = it.getProductId() + "-" + it.getPriceList();
+            ProductPrice p = pricesFilteredByPriceList.get(key);
             if (null == p) {
-                pricesFilteredByPriceList.put(it.getId().toString(), it);
-            } else if (it.getPriority() > p.getPriority()) {
-                pricesFilteredByPriceList.replace(it.getId().toString(), it);
+                pricesFilteredByPriceList.put(key, it);
+            } else if (it.getPriceList() == p.getPriceList() && it.getPriority() > p.getPriority()) {
+                pricesFilteredByPriceList.replace(key, it);
             }
         });
 
         List<PricesDataDto> pricesDataDtos = new ArrayList<>();
 
-        pricesFilteredByPriceList.forEach((key,it) -> pricesDataDtos.add(new PricesDataDto(
+        pricesFilteredByPriceList.forEach((key, it) -> pricesDataDtos.add(new PricesDataDto(
                 it.getCurrency(),
                 it.getPrice(),
                 it.getProductId(),

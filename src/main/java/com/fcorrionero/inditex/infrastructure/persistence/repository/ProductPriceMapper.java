@@ -14,9 +14,8 @@ public class ProductPriceMapper implements RowMapper<ProductPrice> {
     @Override
     public ProductPrice mapRow(ResultSet rs, int rowNum) throws SQLException {
         try{
-//            String fieldID = rs.getString("ID");
-//            UUID id = UUID.fromString(fieldID);
-            UUID id = UUID.randomUUID();
+            String fieldID = rs.getString("ID").substring(0,36);
+            UUID id = UUID.fromString(fieldID);
             int brandId = rs.getInt("BRAND_ID");
             int priceList = rs.getInt("PRICE_LIST");
             int productId = rs.getInt("PRODUCT_ID");
