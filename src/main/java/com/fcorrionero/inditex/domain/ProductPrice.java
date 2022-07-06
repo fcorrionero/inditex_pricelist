@@ -1,19 +1,39 @@
 package com.fcorrionero.inditex.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.UUID;
 
+@Entity
+@Table
 public class ProductPrice {
 
+    @Id
+    @Column
     private UUID id;
+    @Column
     private int brandId;
+    @Column
     private Date startDate;
+    @Column
     private Date endDate;
+    @Column
     private int priceList;
+    @Column
     private int productId;
+    @Column
     private int priority;
+    @Column
     private float price;
+    @Column
     private String currency;
+
+    public ProductPrice() {
+
+    }
 
     public int getBrandId() {
         return brandId;
