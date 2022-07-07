@@ -2,7 +2,6 @@ package com.fcorrionero.inditex.infrastructure.rest;
 
 import com.fcorrionero.inditex.application.GetPricesByApplicationDateProductIdAndBrandIdQueryHandler;
 import com.fcorrionero.inditex.application.PricesDataDto;
-import com.fcorrionero.inditex.domain.ProductPrice;
 import com.fcorrionero.inditex.infrastructure.persistence.repository.H2PriceRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
@@ -24,11 +22,11 @@ import java.util.List;
         }
 )
 @ComponentScan(basePackages = {"com.fcorrionero.inditex"})
-public class PricesControllerComponentTest {
+public class PricesControllerIntegrationTest {
 
-    private PricesController pricesController;
+    private final PricesController pricesController;
 
-    public PricesControllerComponentTest(
+    public PricesControllerIntegrationTest(
             @Autowired PricesController pricesController
             ) {
 
