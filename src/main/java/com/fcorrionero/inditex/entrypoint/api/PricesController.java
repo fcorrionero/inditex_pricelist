@@ -1,4 +1,4 @@
-package com.fcorrionero.inditex.infrastructure.rest;
+package com.fcorrionero.inditex.entrypoint.api;
 
 import com.fcorrionero.inditex.application.GetPricesByApplicationDateProductIdAndBrandIdQuery;
 import com.fcorrionero.inditex.application.GetPricesByApplicationDateProductIdAndBrandIdQueryHandler;

@@ -88,8 +88,4 @@ public class ProductPrice {
         this.price = price;
         this.currency = currency;
     }
-
-    public UUID getId() {
-        return id;
-    }
 }

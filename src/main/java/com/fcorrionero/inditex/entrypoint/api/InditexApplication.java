@@ -1,4 +1,4 @@
-package com.fcorrionero.inditex.entrypoint;
+package com.fcorrionero.inditex.entrypoint.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

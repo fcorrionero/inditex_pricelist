@@ -1,8 +1,9 @@
-package com.fcorrionero.inditex.infrastructure.rest;
+package com.fcorrionero.inditex.entrypoint.api;
 
 import com.fcorrionero.inditex.application.GetPricesByApplicationDateProductIdAndBrandIdQuery;
 import com.fcorrionero.inditex.application.GetPricesByApplicationDateProductIdAndBrandIdQueryHandler;
 import com.fcorrionero.inditex.application.PricesDataDto;
+import com.fcorrionero.inditex.entrypoint.api.PricesController;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
