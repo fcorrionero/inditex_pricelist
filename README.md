@@ -15,4 +15,7 @@ Run the application and them you can execute:
 
 ``curl http://localhost:8080/prices/all/14-06-2020,10:00/35455/1``
 
-to get product prices.
+to get product prices. Also you can reproduce scenarios described in problem changing parameters in request:
+``curl http://localhost:8080/prices/all/{date}/{productId}/{brandId}``
+
+``{date}`` has the format : dd-mm-yyyy,hh:ii
